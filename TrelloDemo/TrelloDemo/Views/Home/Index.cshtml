@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<div class="row">
+    @foreach (var item in ViewBag.Liste)
+    {
+        <div class="col-md-4 col-sm-6">
+            <div class="card m-3" style="width: 18rem;">
+                <div class="card-body swim-lane">
+                    <div class="row">
+                        <div class="col-6">
+                            <a id="@{@item.ListeId}update">
+                                <h5 class="card-title" style="cursor:pointer;">@item.ListeAdi</h5>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-danger" id="@{@item.ListeId}delete">Sil</button>
+                        </div>
+                    </div>
+                        @foreach (var item2 in ViewBag.Kart)
+                    {
+                        if (item.ListeId == item2.ListeId)
+                        {
+                                <div class="card m-1 task" draggable="true">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a id="@{@item2.KartId}kartUpdate" style="cursor:pointer;">
+                                                @item2.KartIcerik
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-danger" id="@{@item2.KartId}kartDelete">Sil</button>
+                                        </div>
+                                     </div>
+                                    
+                                </div>
+                            </div>
+                        }
+                        <script>
+                            $("#@{@item2.KartId}kartUpdate").click(function () {
+                                swal("Kart İçeriğini Güncelle", {
+                                    content: "input",
+                                    buttons: "Güncelle"
+                                })
+                                    .then((value) => {
+                                        let liste = {
+                                            ListeId: @item.ListeId,
+                                            KartIcerik: value,
+                                            KartId:@item2.KartId
+                                        };
+
+                                        $.ajax({
+                                            type: "Post",
+                                            url: "/Home/UpdateKart/",
+                                            data: liste,
+                                            success: function (json) {
+                                                if (json.isRedirect) {
+                                                    window.location.href = json.redirectUrl;
+                                                }
+                                            }
+                                        });
+                                    });
+                            });
+
+                            $("#@{@item2.KartId}kartDelete").click(function () {
+                                swal("Silmek istediğinizden emin misiniz?", {
+                                    buttons: {
+                                        catch: {
+                                            text: "İptal",
+                                            value: "cancel",
+                                        },
+                                        defeat: {
+                                            text: "Sil",
+                                            value: "sil",
+                                        },
+                                    },
+                                })
+                                    .then((value) => {
+                                        switch (value) {
+
+                                            case "cancel":
+                                                swal("İptal edildi", {
+                                                    buttons: "Kapat"
+                                                });
+                                                break;
+
+                                            case "sil":
+                                                $.ajax({
+                                                    type: "Post",
+                                                    url: "/Home/DeleteKart/@item2.KartId",
+                                                    success: function (json) {
+                                                        if (json.isRedirect) {
+                                                            window.location.href = json.redirectUrl;
+                                                        }
+                                                    }
+                                                });
+                                                break;
+                                        }
+
+
+                                    });
+                            });
+
+                        </script>
+                    }
+                    
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary" id="@{@item.ListeId}addKart">Kart Ekle</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#@{@item.ListeId}update").click(function () {
+                swal("Başlık Güncelle", {
+                    content: "input",
+                    buttons: "Güncelle"
+                })
+                    .then((value) => {
+                        let liste = {
+                            ListeId: @item.ListeId,
+                            ListeAdi: value
+                        };
+
+                        $.ajax({
+                            type: "Post",
+                            url: "/Home/UpdateListe/",
+                            data: liste,
+                            success: function (json) {
+                                if (json.isRedirect) {
+                                    window.location.href = json.redirectUrl;
+                                }
+                            }
+                        });
+                    });
+            });
+
+            $("#@{@item.ListeId}delete").click(function () {
+                swal("Silmek istediğinizden emin misiniz?", {
+                    buttons: {
+                        catch: {
+                            text: "İptal",
+                            value: "cancel",
+                        },
+                        defeat: {
+                            text: "Sil",
+                            value: "sil",
+                        },
+                    },
+                })
+                    .then((value) => {
+                        switch (value) {
+
+                            case "cancel":
+                                swal("İptal edildi", {
+                                    buttons: "Kapat"
+                                });
+                                break;
+
+                            case "sil":
+                                $.ajax({
+                                    type: "Post",
+                                    url: "/Home/DeleteListe/@item.ListeId",
+                                    success: function (json) {
+                                        if (json.isRedirect) {
+                                            window.location.href = json.redirectUrl;
+                                        }
+                                    }
+                                });
+                                break;
+                        }
+
+                        
+                    });
+            });
+
+            $("#@{@item.ListeId}addKart").click(function () {
+                swal("Kart İçeriğini Giriniz", {
+                    content: "input",
+                    buttons: "Ekle"
+                })
+                    .then((value) => {
+                        let liste = {
+                            KartIcerik: value,
+                            ListeId: @item.ListeId
+                        };
+
+                        $.ajax({
+                            type: "Post",
+                            url: "/Home/AddKart/",
+                            data: liste,
+                            success: function (json) {
+                                if (json.isRedirect) {
+                                    window.location.href = json.redirectUrl;
+                                }
+                            }
+                        });
+                    });
+            });
+        </script>
+    }
+    <div class="col-md-4 col-sm-6">
+        <button class="btn btn-primary mt-3" id="AddListeBtn">Liste Ekle</button>
+    </div>
+</div>
+<script src="~/js/draganddrop.js"></script>
+<script>
+    $("#AddListeBtn").click(function () {
+        swal("Başlık Giriniz", {
+            content: "input",
+            buttons: "Ekle"
+        })
+            .then((value) => {
+                let liste = {
+                    ListeAdi: value
+                };
+
+                $.ajax({
+                    type: "Post",
+                    url: "/Home/AddListe/",
+                    data: liste,
+                    success: function (json) {
+                        if (json.isRedirect) {
+                            window.location.href = json.redirectUrl;
+                        }
+                    }
+                });
+            });
+    });
+</script>

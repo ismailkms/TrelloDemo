@@ -1,0 +1,11 @@
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\bin\Debug\net6.0\DTOLayer.deps.json
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\bin\Debug\net6.0\DTOLayer.dll
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\bin\Debug\net6.0\DTOLayer.pdb
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.AssemblyInfoInputs.cache
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.AssemblyInfo.cs
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.csproj.CoreCompileInputs.cache
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.dll
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\refint\DTOLayer.dll
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\DTOLayer.pdb
+C:\Users\iak-6\source\repos\TrelloDemo\DTOLayer\obj\Debug\net6.0\ref\DTOLayer.dll
